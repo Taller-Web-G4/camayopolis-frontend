@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -16,7 +16,11 @@ const NavBar: React.FC<NavBarProps> = ({ logo, links = [], rightElement, classNa
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname: string = usePathname();
-    const isSolid: boolean = solidOnRoutes.includes(pathname);
+
+    const isSolid = solidOnRoutes.some((route) => {
+        const regex = new RegExp(`^${route.replace('[id]', '\\d+')}$`);
+        return regex.test(pathname);
+    });
 
     useEffect((): (() => void) => {
         const threshold: number = window.innerHeight * 0.65;
@@ -65,7 +69,7 @@ const NavBar: React.FC<NavBarProps> = ({ logo, links = [], rightElement, classNa
         </div>
     );
 
-    const renderMobileMenu = () => (
+    const renderMobileMenu = () =>
         isMenuOpen && (
             <>
                 {/* Fondo del menú móvil */}
@@ -89,16 +93,11 @@ const NavBar: React.FC<NavBarProps> = ({ logo, links = [], rightElement, classNa
                                 {link.label}
                             </Link>
                         ))}
-                        {rightElement && (
-                            <div className="w-full px-4 py-2">
-                                {rightElement}
-                            </div>
-                        )}
+                        {rightElement && <div className="w-full px-4 py-2">{rightElement}</div>}
                     </div>
                 </div>
             </>
-        )
-    );
+        );
 
     return (
         <nav
