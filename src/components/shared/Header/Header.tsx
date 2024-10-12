@@ -16,12 +16,12 @@ export const Header = () => {
                 { href: '/blog', label: 'Blog' },
             ]}
             rightElement={
-                <Link href="/join" className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                <Link href="/auth/login" className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                     Únete
                 </Link>
             }
             className="border-b border-gray-200"
-            solidOnRoutes={['/peliculas', '/peliculas/[id]']}
+            solidOnRoutes={['/peliculas', '/peliculas/[id]', '/auth/login','/auth/register']}
         />
     );
 }
