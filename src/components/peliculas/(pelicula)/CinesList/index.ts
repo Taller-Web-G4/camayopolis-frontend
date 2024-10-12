@@ -1,0 +1,1 @@
+export { CinesList } from './CinesList';

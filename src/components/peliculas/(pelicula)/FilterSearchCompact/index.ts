@@ -1,0 +1,1 @@
+export { FilterSearchCompact } from './FilterSearchCompact';
