@@ -3,24 +3,28 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { auth } from '@/api/backend';
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     try {
-      // Llamada al endpoint de login
       const response = await auth.login({ email, password });
-      if (response.status === 200) {
-        // Si el login es exitoso, redirigir al dashboard
-        window.location.href = "/";
+
+      if (response.status === 200 && response.data.status) {
+        const { jwt } = response.data;
+
+        localStorage.setItem('jwtToken', jwt);
+
+        router.push('/');
       }
     } catch (err) {
-      // Manejo de errores en caso de credenciales incorrectas u otros problemas
       setError("Credenciales incorrectas.");
     }
   };

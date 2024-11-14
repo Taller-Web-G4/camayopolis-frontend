@@ -21,7 +21,7 @@ export const Header = () => {
                 </Link>
             }
             className="border-b border-gray-200"
-            solidOnRoutes={['/peliculas', '/peliculas/[id]', '/auth/login','/auth/register', '/admin/combos']}
+            solidOnRoutes={['/peliculas', '/peliculas/[id]', '/auth/login','/auth/register', '/admin/combos', '/admin/peliculas']}
         />
     );
 }
