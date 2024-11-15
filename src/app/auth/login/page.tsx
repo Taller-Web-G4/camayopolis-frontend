@@ -1,26 +1,62 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { auth } from '@/api/backend';
+import React, { useState } from "react";
+import Link from "next/link";
+import { auth } from "@/api/backend";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
+
+const base64UrlToBase64 = (base64Url: string): string => {
+    return base64Url.replace(/-/g, '+').replace(/_/g, '/');
+};
+
+const decodeBase64 = (base64: string): any => {
+    const decoded = atob(base64);
+    return JSON.parse(decoded);
+};
+
+const decodeJWT = (token: string) => {
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+        throw new Error("Token JWT inválido");
+    }
+
+    const payloadBase64Url = parts[1];
+    const payloadBase64 = base64UrlToBase64(payloadBase64Url);
+    return decodeBase64(payloadBase64);
+};
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
+  const { setUser } = useUser();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     try {
-      // Llamada al endpoint de login
       const response = await auth.login({ email, password });
-      if (response.status === 200) {
-        // Si el login es exitoso, redirigir al dashboard
-        window.location.href = "/";
+
+      if (response.status === 200 && response.data.status) {
+        const { jwt } = response.data;
+
+        const decoded = decodeJWT(jwt);
+
+        const userEmail = decoded.sub || null;
+        const userRole = decoded.authorities || null;
+
+        localStorage.setItem("jwtToken", jwt);
+
+        setUser({
+          email: userEmail,
+          role: userRole,
+        });
+
+        router.push('/');
       }
     } catch (err) {
-      // Manejo de errores en caso de credenciales incorrectas u otros problemas
       setError("Credenciales incorrectas.");
     }
   };
@@ -31,7 +67,7 @@ const LoginPage = () => {
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">
           Iniciar Sesión
         </h2>
-        
+
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">

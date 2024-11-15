@@ -4,7 +4,6 @@ import { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Image from 'next/image';
 import { Movie } from '@/interfaces';
 
 interface MovieCardInfoProps {
@@ -25,7 +24,7 @@ export const MovieCardInfo: FC<MovieCardInfoProps> = ({ movie }) => {
         <div className="flex flex-col md:flex-row gap-4 max-w-3xl mx-auto">
             <div className="w-full md:w-1/3 flex-shrink-0">
                 <Card className="w-full">
-                    <Image
+                    <img
                         src={posterUrl}
                         alt={title}
                         width={256}
