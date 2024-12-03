@@ -17,7 +17,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ title, image, releaseDate, label,
             {/* Contenedor de la imagen con posición relativa y proporción de aspecto */}
             <div className="relative w-full aspect-[2/3]"> {/* Establecer la relación de aspecto 2:3 para las imágenes */}
                 <Image
-                    src={`/${image}`} // Asegúrate de que las imágenes estén en la carpeta 'public'
+                    src={image} // Asegúrate de que las imágenes estén en la carpeta 'public'
                     alt={title}
                     fill
                     className="object-cover"
