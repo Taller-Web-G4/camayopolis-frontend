@@ -15,7 +15,7 @@ export const MovieCardInfo: FC<MovieCardInfoProps> = ({ movie }) => {
         return <div>No hay información disponible para esta película.</div>;
     }
 
-    const { title, synopsis, runtime, posterUrl, isComingSoon, isNewRelease, isPreSale, cines } = movie;
+    const { title, synopsis, openingDate,runtime, posterUrl, isComingSoon, isNewRelease, isPreSale, cines } = movie;
 
     const availableLanguages = Array.from(new Set(cines.flatMap(cine => cine.session.map(session => session.language))));
     const availableFormats = Array.from(new Set(cines.flatMap(cine => cine.session.map(session => session.format))));
@@ -68,6 +68,8 @@ export const MovieCardInfo: FC<MovieCardInfoProps> = ({ movie }) => {
                                 <span>No disponible</span>
                             )}
                         </div>
+                        <h2 className="text-lg font-semibold mb-2">Fecha de estreno</h2>
+                        <p className="text-gray-700 mb-4">{openingDate}</p>
                         {/* Botón de compra de boletos */}
                         {(isComingSoon || isPreSale) && (
                             <div className="mb-4">
