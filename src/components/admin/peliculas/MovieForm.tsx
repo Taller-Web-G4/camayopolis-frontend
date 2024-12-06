@@ -77,17 +77,17 @@ const MovieDetailsForm: React.FC<MovieDetailsFormProps> = ({ movie, onSave, onCa
                     <Checkbox {...register('isPreSale')} />
                     <span className="ml-2">Preventa</span>
                 </label>
-                <label className="flex items-center">
+                {/* <label className="flex items-center">
                     <Checkbox {...register('isInTheater')} />
                     <span className="ml-2">En Cine</span>
-                </label>
+                </label> */}
             </div>
 
             {/* Categoría */}
-            <div>
+            {/* <div>
                 <label className="block font-medium">Categoría</label>
                 <Input {...register('category')} placeholder="Ej. Animación, Aventura" />
-            </div>
+            </div> */}
 
             {/* Botones */}
             <div className="flex justify-end mt-4">

@@ -1,3 +1,5 @@
+import { Cinema } from "./movie.interface";
+
 export interface MovieDetails {
     id: number;
     title: string;
@@ -9,8 +11,7 @@ export interface MovieDetails {
     isComingSoon: boolean;
     isNewRelease: boolean;
     isPreSale: boolean;
-    isInTheater: boolean;
-    category: string | null;
+    cines: Cinema[];
 }
 
 export const MovieDetailsInit: MovieDetails = {
@@ -24,6 +25,5 @@ export const MovieDetailsInit: MovieDetails = {
     isComingSoon: false,
     isNewRelease: false,
     isPreSale: false,
-    isInTheater: false,
-    category: null,
+    cines: []
 };
